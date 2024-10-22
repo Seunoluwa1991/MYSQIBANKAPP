@@ -77,7 +77,7 @@ nav{
 }
 
 .main{
-    background: url(/images/Human-touch-01-full-1-1024x538.png);
+    background: url(/public/images/Human-touch-01-full-1-1024x538.png);
     background-repeat: no-repeat;
         background-position: cover;
         background-size: cover;
@@ -352,7 +352,7 @@ footer{
 
 
 .security{
-    background: url(/images/3824032.jpg);
+    background: url(/public/images/3824032.jpg);
     background-position: center;
     background-size: cover;
     height: 50rem;
@@ -370,15 +370,12 @@ footer{
  height:30rem
 }
 
-.bank-dashboard{
-    /* background-color: aquamarine; */
-    padding: 30px;
-    width: 80%;
-    margin: 10px;
-    margin-left:200px;
-    
-
-}
+/* .deposit, .withdrawal{
+    height: 10rem;
+    aspect-ratio: 2;
+    text-align: center;
+} */
+ 
 
 .Bank-product{
     position:relative;

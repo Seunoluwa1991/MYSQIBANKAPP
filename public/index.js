@@ -1,54 +1,4 @@
 
-// function product(){
-
-//    const style = document.createElement("style");
-//    style.innerHTML =
-//    ` body{
-//         background-color:black;
-//    }
-//    `
-// //    " body{ background-color:black;}"
-//    document.head.appendChild(style)
-// }
-// function product(){
-
-//     // const toggleHight = document.getElementById("text");
-//     // toggleHight.classList.toggle("hightLight")
-//     const displayProduct = `
-//                     <div class=" ">
-//                     <ul>
-//                         <li> AgriBusiness </li>
-//                         <li> AgriLoans </li>
-//                         <li> Service </li>
-//                         <li> Service </li>
-//                     </ul>
-                   
-                    
-//                     </div>
-               
-//                 `;
-                
-                
-//                 document.getElementById("displayProduct").innerHTML = displayProduct;
-//                 document.getElementById("displayProduct").style = "border: solid 2px none;"
-//                 document.getElementById("displayProduct").style = "box-shadow: 2px 2px 2px 3px silver;"
-
-// }
-
-// function product(){
-//     const displayProduct = document.getElementById("displayProduct");
-//     displayProduct.style.backgroundColor = "red"
-//     displayProduct.style.border ="20px solid red"
-//     displayProduct.style.height ="200px"
-//     displayProduct.style.width ="120px"
-
-//     displayProduct.innerHTML =`
-//                 <option value ="Loan">Loan</li>
-//                 <option value ="Loan">Loan</li>
-//                 <option value ="Loan">Loan</li>
-//     `
-// }
-
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
  import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
@@ -90,7 +40,7 @@
    let personalPhoto = document.getElementById("personalPhoto").files[0];
    let time = new Date()
    let userAccountNumber = Math.floor(1000000000 + Math.random() * 9000000000); // 10-digit random number
-
+   let accountBalance = 0;
  
 
     createUserWithEmailAndPassword(auth, email, password)
@@ -118,6 +68,7 @@
         addressDetails,
         dateOfBirth,
         occupation,
+        userBalanceAccount:accountBalance,
         accountNumber: userAccountNumber,
         personalPhoto: downloadURL,
         Date:time.toLocaleDateString(),
@@ -130,6 +81,9 @@
   .then(() => {
     console.log("User registered successfully");
     alert("registration Successful")
+      // transactionProcess(userId)
+      localStorage.setItem("userId", userId);
+      window.location.href = 'dashboard.html';
 
   })
   .catch((error) => {
