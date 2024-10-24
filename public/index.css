@@ -14,14 +14,7 @@ nav{
     z-index: 1;
 }
 
-@media screen and (max-width:767px) {
-    nav{
-        flex-direction: column;
-        align-items: center;
 
-    }
-    
-}
 
 .dropdown{
     position: relative;
@@ -59,7 +52,7 @@ nav{
         list-style-type: none;
     }
 
-    .main{
+    /* .main{
         background-image:url(/public/images/Human-touch-01-full-1-1024x538.png);
         background-repeat: no-repeat;
         background-position: cover;
@@ -68,7 +61,7 @@ nav{
         justify-content: space-between;
         
     }
-    
+     */
     .main-1{
     position: relative;
     top: 100px;
@@ -83,8 +76,41 @@ nav{
         background-size: cover;
         position: relative; 
         width: 100%;
+        height: 50rem;
         overflow: hidden;
         
+}
+
+/* FOR Small Screen */
+@media only screen and (max-width:767px) {
+    nav{
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .section-1{
+        flex-direction:column;
+    }
+    .main{
+        display:block;
+    }
+
+    .phone{
+        padding: 10px;
+        font-size:14px;
+    }
+
+    .openAccount{
+        padding: 10px;
+        font-size:12px;
+    }
+    .advertbalance{
+        font-size:12px;
+        margin-top: 10px;
+    }
+    .camera{
+        display:none;
+    }
 }
 
 .openAccount1{

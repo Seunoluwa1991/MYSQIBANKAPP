@@ -82,8 +82,8 @@
     console.log("User registered successfully");
     alert("registration Successful")
       // transactionProcess(userId)
-      localStorage.setItem("userId", userId);
-      window.location.href = 'dashboard.html';
+      // localStorage.setItem("userId", userId);
+      // window.location.href = 'dashboard.html';
 
   })
   .catch((error) => {

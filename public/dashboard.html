@@ -29,9 +29,9 @@
             <button class="btn btn-dark px-5">
                 <a class="text-white text-decoration-none" href="index.html">Home</a>
             </button>
-            <button class="btn btn-dark px-5">
+            <!-- <button class="btn btn-dark px-5">
                 <a class="text-white text-decoration-none" href="signup.html">Fund Account</a>
-            </button>
+            </button> -->
             <button class="btn btn-dark px-5" id="withdrawalCash">
                 <a class="text-white text-decoration-none" href="">Transfer</a>
             </button>
@@ -57,8 +57,8 @@
             <button class="btn btn-dark px-5 ">
                 <a class="text-white text-decoration-none" href="">AccountDetails</a>
             </button>
-            <button class="btn btn-dark px-5 ">
-                <a class="text-white text-decoration-none" href="">sign Out</a>
+            <button class="btn btn-dark px-5 " id="signOut">
+                <a class="text-white text-decoration-none"  href="">sign Out</a>
             </button>
         </nav>
 
@@ -68,10 +68,12 @@
         <div class="d-flex">
 
             <div class="welcome-1 p-5 shadow col-6 rounded m-1" id="displayUserInfo">
-
+                <div id="displayUserPhoto" class="border border-1 border-success rounded" style="margin-right: 100px";>
+    
+                </div>
             </div>
-
-
+            
+            
             <div class=" welcome-2 d-flex bg-success p-5 shadow col-6 rounded m-1" id="displayDashboard">
 
                 <div class="deposit" id="depositForm"></div>
@@ -89,7 +91,7 @@
         <script type="module">
             // Import the functions you need from the SDKs you need
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-            import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+            import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
             import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
 
             // Your web app's Firebase configuration
@@ -112,6 +114,7 @@
             //  get element by Id
 
             const displayUserInfo = document.getElementById("displayUserInfo");
+            const displayUserPhoto = document.getElementById("displayUserPhoto")
             let userId = null;
             let userEmail = null
 
@@ -134,12 +137,16 @@
 
                             function displayOnDashboard(info) {
                                 displayUserInfo.innerHTML = `
-                                <div class="mt-5 border border-1 shadow bg-success-subtle">
+                                <div class="mt-5 border border-1 shadow bg-success rounded">
                                      <h1> Hello, ${info.firstName} ${info.lastName}<h1>
                                      <h1>Email:${info.email}</h1>
                                      <h1>Account Number:${info.accountNumber}</h1>
-                                     <p>Available Balance: ${info.userBalanceAccount}</p>
-                                     </div>`;
+                                     <h3>Available Balance: ${info.userBalanceAccount}</h3>
+                                     <div style="background-color:black;"><img src="${info.personalPhoto}" height="100px"></div>
+                                     </div>`
+                                     
+                                     displayUserPhoto.innerHTML =`
+                                `
                             }
 
                         }
@@ -205,6 +212,9 @@
                     }
                 };
 
+                // withdrawalForm.classList.remove("d-none");
+                // depositForm.classList.add("d-none")
+
                 // Deposit Form
 
                 function showDepositForm(userId) {
@@ -223,10 +233,22 @@
                     </form>
                     </div>`
 
-                    document.getElementById("depositBtn").addEventListener("click", (event) => {
-                        handleDeposit(userId); 
+                    // document.getElementById("depositBtn").addEventListener("click", (event) => {
+                    //     handleDeposit(userId); 
+                    const depositBtn = document.getElementById("depositBtn");
+                    if(depositBtn){
+                        depositBtn.addEventListener("click", handleDeposit);
+                            
+                        }else{
+                            alert("Transaction cannot be done");
+                        }
+                    }
     });
-                }
+                
+
+                    // withdrawalForm.classList.add("d-none");
+                    // depositForm.classList.remove("d-none");
+
 
 
                 function handleWithdrawal(event) {
@@ -240,6 +262,7 @@
                     }
 
                     const userRef = ref(database, `users/${userId}`);
+                    // const userRef = ref(databas, `users/${userId}`);
 
                     runTransaction(userRef, (userData) => {
                         if (userData) {
@@ -251,10 +274,6 @@
                                 return; // Cancel transaction if insufficient balance
                             }
                         }
-                        return;
-                    }).then(() => {
-                        alert("Kindly Fund your Account to make your transaction");
-                        updateUserInfo(); // Refresh user info
                     }).catch((error) => {
                         console.error("Error processing transfer: ", error);
                     });
@@ -271,7 +290,7 @@
                     });
                 }
 
-            });
+            
 
 
             function handleDeposit(userId) {
@@ -293,7 +312,6 @@
                     }
                 }).then(() => {
                     alert("Deposit successful!");
-                    updateUserInfo(userId);
 
                 }).catch((error) => {
                     console.error("Error processing deposit: ", error);
@@ -301,9 +319,19 @@
 
             }
 
-                function displayOnDashboard(userId){
-                    console.log(userId)
-                }
+            // Sign Out
+
+            document.getElementById("signOut").addEventListener("click", ()=>{
+                signOut(auth)
+                .then(()=>{
+                    console.log("signOut successfully")
+                    alert("signout successfully")
+                    window.location.href ="./index.html"
+                }) .catch((error)=>{
+                    alert("signout failed")
+                })
+
+            })
 
         </script>
 
